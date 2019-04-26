@@ -1,0 +1,228 @@
+<?php
+	include ('includes/login_check.php');
+	include ('conn.php');
+	$level=$_REQUEST['level'];
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html>
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<link rel="stylesheet" type="text/css" href="stylesheet/main.css">
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" background="images/Picture1.jpg">
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="border">
+	<tr>
+		<td colspan="2" align="center"><?php include('includes/header.php') ; ?>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="text12"><table width="100%"  border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+			<tr>
+				<td align="right" valign="top" height="10" ><a href="acronyms.php" class="back_menu" target="_blank">Acronyms</a>&nbsp;|| &nbsp;<a href="bfc_state.php" class="back_menu"><strong>Report </strong></a>&nbsp;|| &nbsp;<a href="home.php" class="back_menu"><strong>Home Page</strong></a>&nbsp;&nbsp;&nbsp;</td>
+			</tr>
+			<tr>
+				<td align="left" valign="top" height="10"> </td>
+			</tr>
+			<tr>
+				<td align="left" valign="top" ><form name="form1" method="post" action=""><table width="50%" align="center" border="0" cellspacing="2" cellpadding="1" bgcolor="#F1F4F7">
+					<tr>
+							<td>&nbsp; </td>
+					</tr>
+					<tr>
+						<td class="backheads" align="center">Sectoral Expenditure within Budget for Children, as percentage of the State Social Sector </td>
+					</tr>
+					<tr>
+						<td align="right">&nbsp; </td>
+					</tr>
+					<tr>
+						<td><table width="100%" align="center" border="1" cellspacing="2" cellpadding="1" bgcolor="#F1F4F7">
+						<tr>
+			  <td colspan="2">&nbsp;&nbsp;&nbsp;Select State :</td>
+			  <td colspan="4">&nbsp;
+			  			  <select name="state_id">
+				<option value="" selected>Select</option>
+				<?php
+					$sel_state="select * from haq_state where state_status='active' order by state_name";
+					$res_state=mysql_query($sel_state);
+					while($fetch_state = mysql_fetch_array($res_state)){ ?>
+				<option value="<?php echo $fetch_state['state_id']; ?>" ><?php echo $fetch_state['state_name'];?></option> 
+				<? }?>
+				  </select>&nbsp;</td>
+
+			  </tr>
+<tr>
+						  <td colspan="2">&nbsp;&nbsp;&nbsp;Select Year :</td>
+						  <td colspan="2" align="left">From : &nbsp;&nbsp; 
+							<select name="year_from">
+							<option value="" selected>Select</option>
+							<?php
+								$sel_year="select * from haq_year where year_status='active' order by year_code";
+								$res_year=mysql_query($sel_year);
+								while($fetch_year = mysql_fetch_array($res_year)){ ?>
+							<option value="<?php echo $fetch_year['year_code']; ?>" ><?php echo $fetch_year['year_name'];?></option> 
+							<? }?>
+							  </select></td>
+						  <td colspan="2" align="left">&nbsp;To : &nbsp;&nbsp;
+							<select name="year_to">
+							  <option value="" selected>Select</option>
+							  <?php
+								$sel_year="select * from haq_year where year_status='active' order by year_code";
+								$res_year=mysql_query($sel_year);
+								while($fetch_year = mysql_fetch_array($res_year)){ ?>
+							  <option value="<?php echo $fetch_year['year_code']; ?>" ><?php echo $fetch_year['year_name'];?></option>
+							  <? }?>
+							</select></td>
+							</tr>							<tr>
+								<td colspan="2" >&nbsp;&nbsp;&nbsp;Select Sector :</td>
+								<td  align="left" colspan="2"><select name="sector_id"><option value="" selected>Select</option>
+									<?php
+										$sel_query="select * from haq_sector where sector_status='active' order by sector_name";
+										$res_query=mysql_query($sel_query);
+										while($fetch_query = mysql_fetch_array($res_query)){ ?>
+									<option value="<?php echo $fetch_query['sector_id']; ?>" ><?php echo $fetch_query['sector_name'];?></option>
+									<?php } ?>
+								</select></td>
+								<td colspan="2"  align="left"><input name="submit" type="submit" id="submit" value="Search">			    &nbsp;</td>
+							</tr>
+							<tr>
+								<td height="25" colspan="6" class="txt">&nbsp;</td>
+							</tr>
+<?php
+			if (isset($_REQUEST['submit'])){
+					$sel_state="select * from haq_state where state_id='".$_REQUEST['state_id']."' and state_status='active' order by state_name";
+					$res_state=mysql_query($sel_state);
+					$fetch_state = mysql_fetch_array($res_state);
+					$sec_disp="select * from haq_sector where sector_id='".$_REQUEST['sector_id']."' and sector_status='active'";
+					$res_disp=mysql_query($sec_disp);
+					$fetch_disp = mysql_fetch_array($res_disp); ?>
+				<tr>
+				  <td height="25" align="left" colspan="6" >&nbsp;&nbsp;<strong>State >> <?php echo $fetch_state['state_name'] ; ?></strong><br>&nbsp;&nbsp;<strong>Sector >> <?php echo $fetch_disp['sector_name'] ; ?></strong></td>
+			  </tr>
+<?php } ?>							<tr>
+								<td height="25" class="txt" colspan="2"><strong>Year </strong></td>
+									<?php
+										$sel_query="select * from haq_sector where sector_status='active' and sector_id='".$_REQUEST['sector_id']."' order by sector_name";
+										$res_query=mysql_query($sel_query);
+										$fetch_query = mysql_fetch_array($res_query) ; ?>
+								<td height="25" colspan="4" align="center" class="txt"><strong><?php if($fetch_query['sector_name'] !=''){ echo $fetch_query['sector_name'] ;} else { echo 'Sector' ; } ?></strong></td>
+						</tr>
+								<?php
+									if (isset($_REQUEST['submit'])){
+									if($_REQUEST['year_from'] > $_REQUEST['year_to']){
+										$error="Invalid Year Range Selected";
+									
+						?>
+										<tr>
+										  <td height="25" align="center" colspan="6" class="error"><?php echo $error ; ?></td>
+										  </tr>
+						<?php
+									}else {
+
+
+									$select_year="select * from haq_year where year_status='active' and year_code between '".$_REQUEST['year_from']."' and '".$_REQUEST['year_to']."' order by year_id";
+									$result_year=mysql_query($select_year);
+						// For Excel File Generation
+									unset($_SESSION['report_header']);
+									unset($_SESSION['report_values']);
+									$_SESSION['report_header']=array("Sectoral Expenditure within Budget for Children, as percentage of the State Social Sector", " "); 
+									$i=0;
+									$_SESSION['report_values'][$i][0]=State." >> ".$fetch_state['state_name'];
+									$_SESSION['report_values'][$i][1]=" ";
+									$i=1;
+									$_SESSION['report_values'][$i][0]=Sector.">>".$fetch_disp['sector_name'];
+									$_SESSION['report_values'][$i][1]=" ";
+									$i=2;
+									$sector=$fetch_query['sector_name'];
+									$_SESSION['report_values'][$i][0]="Year";
+									$_SESSION['report_values'][$i][1]=$sector;
+										$i=3;
+									while($fetch_year=mysql_fetch_array($result_year)){	
+
+									$select_sector_report="select sum(a.ae_grand_total) as ae_total, a.expend_year as year from haq_head_expend_state a LEFT JOIN haq_st_major_head b ON a.major_head_id=b.major_head_id where b.major_head_status='active' and b.sector_id='".$fetch_query['sector_id']."' and a.state_id='".$_REQUEST['state_id']."' and a.expend_type='".$_REQUEST['level']."' and a.expend_year='".$fetch_year['year_name']."' group by a.expend_year";
+									$result_sector_report=mysql_query($select_sector_report);
+									$fetch_sector_report=mysql_fetch_array($result_sector_report);
+									$ae_cro=$fetch_sector_report['ae_total']/10000;
+
+									$select_union_budget="select budget_ae_grand_total, budget_year from haq_budget_report_union where budget_type='social_sec' and budget_status='active' and state_id='".$_REQUEST['state_id']."' and social_sector_type='".$_REQUEST['level']."' and budget_year='".$fetch_year['year_name']."'";
+									$result_union_budget=mysql_query($select_union_budget);
+									$fetch_union_budget=mysql_fetch_array($result_union_budget);
+									if($fetch_union_budget['budget_year'] !=0 && $fetch_sector_report['year'] !=0){
+
+									if ($fetch_union_budget['budget_ae_grand_total'] !=0){
+									$ae_bfc= $ae_cro/$fetch_union_budget['budget_ae_grand_total']*100;
+									} else {
+									$ae_bfc = "N/A" ;
+									}
+									
+									
+									$_SESSION['report_values'][$i][0]=$fetch_sector_report['year']."  ";
+									$_SESSION['report_values'][$i][1]=round($ae_bfc, 3)."% ";
+								?>
+							<tr>
+								<td class="txt" colspan="2"><strong><?php echo $fetch_sector_report['year'] ; ?></strong></td>
+								<td colspan="4" align="center" class="txt"><?php echo round($ae_bfc, 3)."%" ; ?></td>
+							</tr>
+								<?php
+									$i=$i+1;
+									}	}
+///////AVERAGE CALCULATION STARTS////////////////
+								?>
+							<!--tr>
+								<td class="txt" colspan="2"><strong>Average</strong></td-->
+								<?php
+
+/*								$select_sector_avg="select sum(a.ae_grand_total) as ae_total from haq_head_expend_state a LEFT JOIN haq_st_major_head b ON a.major_head_id=b.major_head_id where b.major_head_status='active' and a.expend_year_code between '".$_REQUEST['year_from']."' and '".$_REQUEST['year_to']."' and a.state_id='".$_REQUEST['state_id']."' and b.sector_id='".$fetch_query['sector_id']."' and a.expend_type='".$_REQUEST['level']."' and expend_status='active'";
+								$result_sector_avg=mysql_query($select_sector_avg);
+								$fetch_sector_avg=mysql_fetch_array($result_sector_avg);
+								$ae_avg=$fetch_sector_avg['ae_total']/10000;
+								
+								$select_union_avg="select sum(budget_ae_grand_total) as ae_gr_total from haq_budget_report_union where budget_type='social_sec' and budget_status='active' and state_id='".$_REQUEST['state_id']."' and budget_year_code between '".$_REQUEST['year_from']."' and '".$_REQUEST['year_to']."' and social_sector_type='".$_REQUEST['level']."'";
+								$result_union_avg=mysql_query($select_union_avg);
+								$fetch_union_avg=mysql_fetch_array($result_union_avg);
+								if($fetch_union_avg['ae_gr_total'] !=0){
+								$ae_bfc_avg= $ae_avg/$fetch_union_avg['ae_gr_total']*100;
+									$_SESSION['report_values'][$i][0]=Average."  ";
+									$_SESSION['report_values'][$i][1]=round($ae_bfc_avg, 3)."% ";
+*/								?>
+								<!--td colspan="4" align="center" class="txt"><?php // echo round($ae_bfc_avg, 3)."%" ; ?></td-->
+								<?php
+//								}else {
+								?>
+								<!--td align="center" class="txt" colspan="4"></td-->
+								<?php
+//								}
+///////AVERAGE CALCULATION ENDS////////////////
+
+								?>
+							</tr>
+							<?php } }?>
+							<tr>
+								<td height="30" colspan="6" align="center">&nbsp;<a href="export_report.php?fn=ST_sec_exp_bfc_SS">Download in Excel</a></td>
+							</tr>
+						</table></td>
+					</tr>
+					<tr>
+						<td>&nbsp; </td>
+					</tr>
+				</table></form> </td>
+			</tr>
+			<tr>
+				<td align="left" valign="top" height="10"> </td>
+			</tr>
+			<tr>
+				<td align="left" valign="top"></td>
+			</tr> 
+		</table></td>
+	</tr>
+	<tr>
+		<td colspan="2"><?php include ('includes/footer.php') ; ?></td>
+	</tr>
+</table>
+</body>
+</html>
+<script language="JavaScript" type="text/javascript">
+var frmvalidator = new Validator("form1");
+frmvalidator.addValidation("sector_id","req","Please Select Sector");
+frmvalidator.addValidation("year_from","req","Please Select Year From");
+frmvalidator.addValidation("year_to","req","Please Select Year To");
+</script>
