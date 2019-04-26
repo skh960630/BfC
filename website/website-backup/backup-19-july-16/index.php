@@ -60,7 +60,8 @@
 	</table></td>
 </body>
 </html>
-<script language="JavaScript" type="text/javascript">
+<!-- <script language="JavaScript" type="text/javascript"> -->
+<script src = "javascript/gen_validatorv2.js" language="JavaScript" type="text/javascript">
 var frmvalidator = new Validator("form1");
 frmvalidator.addValidation("admin_user","req","Please Enter User Name");
 frmvalidator.addValidation("admin_password","req","Please Enter Password");
