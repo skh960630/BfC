@@ -1,0 +1,28 @@
+/* contents for main page*/
+
+.mainbackground {
+  background-color: white;
+  border-right: 3px solid #FFA600;
+  border-left: 3px solid #FFA600;
+}
+
+.maintextbox {
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.mainphotobox{
+  display:inline;
+  margin-right: 50px;
+  float:right;
+}
+
+/* straight line */
+hr {
+width: 900px;
+margin-top:20px;
+margin-left: auto;
+margin-right: auto;
+height: 1px;
+background-color:black;
+}

@@ -1,0 +1,16 @@
+/* background border setting */
+.borderset {
+  border: 3px solid #FFA600;
+}
+
+/* font setting */
+p {
+  font-family: Arial;
+  font-size: 13;
+}
+
+/* align social network buttons */
+.row {
+  display: flex;
+  justify-content: center;
+}

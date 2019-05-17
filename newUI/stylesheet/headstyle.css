@@ -1,0 +1,90 @@
+/* background setting*/
+body{
+  background-color: #D3D3D3;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* top image container */
+#container {
+    position: relative;
+}
+
+#haqimage {
+    position: absolute;
+    left: 70px;
+    top: 90px;
+}
+
+/* Navbar container */
+.navbar {
+  overflow: hidden;
+  background-color: #404040;
+  font-family: Arial;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 5px 16px;
+  text-decoration: none;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 5px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/* Add a black background color when pointed*/
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: black;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-right: 2px solid #000000;
+  border-left: 2px solid #000000;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 5px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  border-bottom: 2px solid #000000;
+}
+
+/* Add an orange background color when pointed */
+.dropdown-content a:hover {
+  background-color: #FFA600;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
