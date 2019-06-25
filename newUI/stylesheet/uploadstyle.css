@@ -1,0 +1,33 @@
+/* contents for upload page*/
+.uploadbutton {
+  background: white;
+  border: none;
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left:376px;
+}
+
+.uploadbutton:hover {
+  opacity: 0.7;
+}
+
+.dropdowncontainer {
+  display:inline-block;
+  vertical-align: middle;
+  margin-bottom: 20px;
+}
+
+.uploadform {
+  margin-left: 75px;
+}
+
+#dropdown{
+ width:170px;
+ height:30px;
+}
+
+/* font setting */
+h2 {
+  font-family: Verdana;
+}

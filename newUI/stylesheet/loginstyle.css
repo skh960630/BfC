@@ -1,0 +1,29 @@
+/* contents for login page*/
+input[type=username], input[type=password] {
+  width: 250px;
+  padding: 9px 15px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.loginbutton {
+  background-color: #4CAF50;
+  color: white;
+  padding: 9px 15px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 250px;
+  margin-bottom: 30px;
+}
+
+.loginbutton:hover {
+  opacity: 0.7;
+}
+
+/* font setting */
+h3 {
+  font-family: Verdana;
+}

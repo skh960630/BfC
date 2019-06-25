@@ -1,6 +1,10 @@
 /* background border setting */
 .borderset {
-  border: 3px solid #FFA600;
+  display: inline-block;
+  border-right: 3px solid #FFA500;
+  border-left: 3px solid #FFA500;
+  border-bottom: 3px solid #FFA500;
+  width: 994px;
 }
 
 /* font setting */

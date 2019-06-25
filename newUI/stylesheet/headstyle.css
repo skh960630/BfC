@@ -19,8 +19,13 @@ body{
 /* Navbar container */
 .navbar {
   overflow: hidden;
+  width: 1000px;
   background-color: #404040;
   font-family: Arial;
+}
+
+.stafflogo {
+  display: flex;
 }
 
 /* Links inside the navbar */
@@ -81,7 +86,7 @@ body{
 
 /* Add an orange background color when pointed */
 .dropdown-content a:hover {
-  background-color: #FFA600;
+  background-color: #ffb347;
 }
 
 /* Show the dropdown menu on hover */

@@ -24,10 +24,10 @@
     <!-- <a href="aboutus.php">About Us</a>
     <a href="aboutus.php">FAQ</a>
     <a href="aboutus.php">Contact Us</a> -->
-    <a href="loginpage.php">
+    <a href="logout.php">
       <div class="stafflogo">
         <img src="images/usericon.png" style="width:18px; height: 18px; padding-right:5px;">
-        Staff Login
+        Staff Logout
       </div>
     </a>
   </div>
