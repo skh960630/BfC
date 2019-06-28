@@ -1,34 +1,3 @@
-<?php
-// session_start();
-// $error = '';
-//
-// if(isset($_POST['loginbutton'])){
-//   if(empty($_POST['username']) || empty($_POST['password'])){
-//     $error = "Username or Password is invalid";
-//   }else{
-//     $username = $_POST('username');
-//     $password = $_POST('password');
-//
-//     $conn = mysqli_connect("localhost", "root", "", "ISYS_HAQ");
-//     $query = "SELECT admin_user_id, admin_password from haq_admin_user where admin_user_id=? AND admin_password=? LIMIT 1";
-//
-//     $stmt = $conn->prepare($query);
-//     $stmt->bind_param("ss", $username, $password);
-//     $stmt->execute();
-//     $stmt->bind_result($username, $password);
-//     $stmt->store_result();
-//
-//     if($stmt->fetch()){
-//       $_SESSION['login_user'] = $username;
-//       header("location: profile.php");
-//     }else{
-//       $error = "Username or Password is invalid";
-//     }
-//     mysqli_close($conn);
-//   }
-// }
-?>
-
 <html>
 <head>
   <script type="text/javascript" src="javascript/jquery-3.3.1.js" ></script>
@@ -56,7 +25,7 @@
         <input type="password" name="password" placeholder="Password" required>
       </div>
       <div class="midcontainer">
-        <button class="loginbutton">Log in</button>
+        <button class="loginbutton" name="loginbutton">Log in</button>
       </div>
     </form>
   </div>

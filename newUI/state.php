@@ -1,3 +1,16 @@
+<?php
+error_reporting(0);
+$conn = mysqli_connect("localhost","root","bulgogi123","ISYS_HAQ");
+
+$query = "Select Year from haq_report_count Where Level = 'State' Order by Year ASC;";
+$result = mysqli_query($conn, $query);
+$state_list = array();
+
+while($row = mysqli_fetch_assoc($result)){
+  $state_list[] = $row['Year'];
+}
+?>
+
 <html>
 <head>
   <script type="text/javascript" src="javascript/jquery-3.3.1.js" ></script>
@@ -18,19 +31,17 @@
     <hr></hr>
     <div class="midcontainer">
       <h2>State Budget Report</h2>
-      <form class="searchbox" action="index.php">
-        <input type="text" placeholder="Search" name="searchtext">
-        <button type="submit"><img src="images/search.png" class = "search"></button>
+      <form action = "statereport.php" method="post" enctype="">
+        <select name="stateData" id="yeardropdown">
+          <option value="" disabled selected value>Select Year</option>
+          <?php
+          foreach($state_list as $list) { ?>
+              <option value="<?= $list ?>"><?= $list ?></option>
+          <?php
+          }?>
+        </select>
+        <button type="submit" class="selectbt"><b>Select</b></button>
       </form>
-      <h3>or</h3>
-      <select name="category" id="yeardropdown">
-        <option value="">Select Year</option>
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-      </select>
-      <button type="submit" class="selectbt"><b>Select</b></button>
     </div>
   </div>
   <div id="footer"></div>

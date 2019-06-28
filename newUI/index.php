@@ -1,11 +1,3 @@
-<?php
-include('loginpage.php');
-
-if(isset($_SESSION['login_user'])){
-  header("location: profile.php");
-}
-?>
-
 <html>
 <head>
   <script type="text/javascript" src="javascript/jquery-3.3.1.js" ></script>

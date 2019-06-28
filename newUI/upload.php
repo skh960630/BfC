@@ -1,39 +1,21 @@
 <?php
-
-if(isset($_POST['SubmitButton'])){ //check if form was submitted
-$csv_file = $_FILES['filepath']['name'];
-$message = $_FILES['filepath']['name'];
-echo "<script type='text/javascript'>alert('$message');</script>";
-
-// if ( !is_file( $csv_file ) ){
-//     exit('File not found.');
-// }else{
-//   $message = $_FILES["filepath"]["name"];
-//   echo "<script type='text/javascript'>alert('$message');</script>";
-// }
-$target_dir = 'uploads/';
-$target_file = $target_dir . basename($_FILES["filepath"]["name"]);
-$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-
-move_uploaded_file($_FILES["filepath"]["name"], $target_file);
-
-$mysqli = new mysqli("localhost", "root", "", "ISYS_HAQ");
-
-require_once dirname(__FILE__) . '/Includes/Classes/PHPExcel/IOFactory.php';
-
-$inputFileType = PHPExcel_IOFactory::identify($target_file);
-
-$objReader = PHPExcel_IOFactory::createReader($inputFileType);
-$objPHPExcel = $objReader->load($target_file);
-
-$i=2;
-$val=array();
-$count=0;
-for($i=2;$i<34;$i++)
-{
-$val[$count++]=$objPHPExcel->getActiveSheet()->getCell('C'.$i)->getValue();
+error_reporting(0);
+session_start();
+if(!isset($_SESSION['login_user'])){
+  header("location: index.php");
 }
+
+$conn = mysqli_connect("localhost","root","bulgogi123","ISYS_HAQ");
+
+$query = "Select Name from haq_report_count Order by Name ASC;";
+$result = mysqli_query($conn, $query);
+$name_list = array();
+
+while($row = mysqli_fetch_assoc($result)){
+  $name_list[] = $row['Name'];
 }
+
+//.xls,.xlsx,
 ?>
 
 <html>
@@ -58,27 +40,40 @@ $val[$count++]=$objPHPExcel->getActiveSheet()->getCell('C'.$i)->getValue();
       <h2>Upload Excel File</h2>
     </div>
     <div class="midcontainer">
-      <div class="dropdowncontainer">
-        <div class"dropdowncontainer" style="margin-bottom: 5px;">
-          <select name="category" id="dropdown">
-            <option value="">Select Level</option>
-            <option value="state">State</option>
-            <option value="union">Union</option>
+      <form action = "importfile.php" method="post" enctype="multipart/form-data">
+        <div class="uploadcontainer">
+          <input type="text" class="selectBox" name="level" maxlength="30" placeholder="Select Level" required />
+          <input type="text" class="selectBox" name="year" maxlength="20" placeholder="Select Year (Ex.2008-09)" required />
+        </div>
+        <div class="uploadform">
+          <input type="file" name="file" accept=".csv" required />
+          <button class="uploadbutton" name="SubmitButton">
+            <img src="images/upload.png" style="width="80px" height="80px""/>
+          </button>
+        </div>
+      </form>
+    </div>
+    <hr></hr>
+    <div class="midcontainer">
+      <h2>Delete Excel File</h2>
+    </div>
+    <div class="midcontainer">
+      <form action = "deletefile.php" method="post" enctype="">
+        <div class="dropdowncontainer">
+          <select name="deleteReport" class="deleteBox" id="yeardropdown">
+            <option value="" disabled selected value>Select Report</option>
+            <?php
+            foreach($name_list as $list) { ?>
+                <option value="<?= $list ?>"><?= $list ?></option>
+            <?php
+            }?>
           </select>
         </div>
-        <select name="category" id="dropdown">
-          <option value="">Select Year</option>
-          <option value="2015">2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-          <option value="2018">2018</option>
-        </select>
-      </div>
-      <form class="uploadform" action = "" method="post" enctype="multipart/form-data">
-        <input type="file" name="filepath" id = "filepath" multiple />
-        <button class="uploadbutton" name="SubmitButton" id="SubmitButton">
-          <img src="images/upload.png" style="width="80px" height="80px""/>
-        </button>
+        <div class="uploadform">
+          <button class="deletebutton" name="DeleteButton">
+            <img src="images/delete.png" style="width="80px" height="80px""/>
+          </button>
+        </div>
       </form>
     </div>
   </div>

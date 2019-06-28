@@ -1,10 +1,3 @@
-<?php
-session_start();
-if(isset($_SESSION['login_user'])){
-  header("location: memberheader.php");
-}
-?>
-
 <html>
 <head>
   <link href="stylesheet/headstyle.css" rel="stylesheet" type="text/css">
@@ -29,10 +22,10 @@ if(isset($_SESSION['login_user'])){
       </div>
     </div>
     <a href="upload.php">Upload</a>
-    <a href="loginpage.php">
+    <a href="logout.php">
       <div class="stafflogo">
         <img src="images/usericon.png" style="width:18px; height: 18px; padding-right:5px;">
-        Staff Login
+        Staff Logout
       </div>
     </a>
   </div>
